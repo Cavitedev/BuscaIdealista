@@ -27,15 +27,18 @@ public class LlamadorHttp implements ILlamadorHttp {
     }
 
     /**
-     *
      * @return Body of the post request
-     * @throws IOException connectivity problem or timeout
+     * @throws IOException          connectivity problem or timeout
      * @throws LlamadaHttpException Not 200 http code exception
      */
     public String callPost(String uri, Map<String, String> headerMap, String bodyStr) throws IOException, LlamadaHttpException {
+        if(bodyStr == null)
+            bodyStr = "";
 
         MediaType mediaType = MediaType.parse("multipart/form-data; boundary=---011000010111000001101001");
         RequestBody body = RequestBody.create(mediaType, bodyStr);
+
+
         Request.Builder requestBuilder = new Request.Builder()
                 .url(uri)
                 .post(body);

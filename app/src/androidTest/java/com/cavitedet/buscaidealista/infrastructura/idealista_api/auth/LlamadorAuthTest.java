@@ -12,9 +12,9 @@ public class LlamadorAuthTest {
 
 
     //Expensive Call 💰. Uncomment to use it
-//    @Test
-//    public void llamarAuth() throws IOException, LlamadaHttpException {
-//        String auth = LlamadorAuth.getInstance().refrescarAuth();
-//        assertNotNull(auth);
-//    }
+    @Test
+    public void llamarAuth() throws IOException, LlamadaHttpException {
+        String auth = LlamadorAuth.getInstance().llamarAuth();
+        assertNotNull(auth);
+    }
 }
