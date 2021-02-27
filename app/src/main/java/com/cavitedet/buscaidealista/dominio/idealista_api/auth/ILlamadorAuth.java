@@ -13,6 +13,6 @@ public interface ILlamadorAuth {
      * @throws IOException connectivity problem or timeout
      * @throws LlamadaHttpException Not 200 http code exception
      */
-    String refrescarAuth() throws IOException, LlamadaHttpException;
+    String llamarAuth() throws IOException, LlamadaHttpException;
 
 }

@@ -21,7 +21,7 @@ public class LlamadorApi implements ILlamadorApi {
     }
 
     @Override
-    public String getViviendas(double lon, double lat, double distanciaMetros, VentaAlquiler ventaAlquiler) {
+    public String getViviendas(String auth, double lon, double lat, double distanciaMetros, VentaAlquiler ventaAlquiler) {
         return null;
     }
 

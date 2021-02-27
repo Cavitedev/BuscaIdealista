@@ -22,7 +22,7 @@ public class LlamadorAuth implements ILlamadorAuth {
     }
 
     @Override
-    public String refrescarAuth() throws IOException, LlamadaHttpException {
+    public String llamarAuth() throws IOException, LlamadaHttpException {
         String uri = "https://api.idealista.com/oauth/token?=";
         Map<String, String> headers = new HashMap<>();
         String auth = BuildConfig.IDEALISTA_AUTH;
