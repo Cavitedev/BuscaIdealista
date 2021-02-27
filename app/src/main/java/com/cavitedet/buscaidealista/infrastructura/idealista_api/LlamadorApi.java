@@ -1,7 +1,6 @@
 package com.cavitedet.buscaidealista.infrastructura.idealista_api;
 
 import com.cavitedet.buscaidealista.BuildConfig;
-import com.cavitedet.buscaidealista.dominio.idealista_api.ILlamadorApi;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquilerUtil;
 import com.cavitedet.buscaidealista.infrastructura.idealista_api.http.LlamadaHttpException;

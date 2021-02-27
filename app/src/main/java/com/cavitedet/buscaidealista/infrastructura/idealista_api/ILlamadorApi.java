@@ -1,4 +1,4 @@
-package com.cavitedet.buscaidealista.dominio.idealista_api;
+package com.cavitedet.buscaidealista.infrastructura.idealista_api;
 
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
 import com.cavitedet.buscaidealista.infrastructura.idealista_api.http.LlamadaHttpException;
