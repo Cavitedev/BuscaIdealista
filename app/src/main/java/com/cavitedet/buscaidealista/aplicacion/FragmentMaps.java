@@ -1,17 +1,20 @@
 package com.cavitedet.buscaidealista.aplicacion;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
-import com.bumptech.glide.Glide;
 import com.cavitedet.buscaidealista.R;
 import com.cavitedet.buscaidealista.dominio.idealista_api.IIdealistaRepositorio;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
@@ -51,20 +54,28 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         this.googleMap = googleMap;
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
+
+        googleMap.setOnInfoWindowClickListener(marker -> {
+            Intent paginaWebIntent = new Intent(Intent.ACTION_VIEW);
+            paginaWebIntent.setData(Uri.parse(marker.getTitle()));
+            startActivity(paginaWebIntent);
+        });
+
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                for(Vivienda vivienda: viviendaList){
-                    if(vivienda.getUrl().equals(marker.getTitle())){
+                for (Vivienda vivienda : viviendaList) {
+                    if (vivienda.getUrl().equals(marker.getTitle())) {
                         View v = getLayoutInflater().inflate(R.layout.vivienda_desplegable, null);
                         TextView titulo = v.findViewById(R.id.titulo);
                         TextView direccion = v.findViewById(R.id.direccion);
                         ImageView imagenMiniatura = v.findViewById(R.id.miniatura_imagen);
-                        if(vivienda.getThumbnailBitmap() != null){
+                        if (vivienda.getThumbnailBitmap() != null) {
                             imagenMiniatura.setImageBitmap(vivienda.getThumbnailBitmap());
                         }
                         titulo.setText(marker.getTitle());
                         direccion.setText(vivienda.getAddress());
+
                         return v;
                     }
                 }
@@ -78,7 +89,6 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         });
 
 
-
     }
 
 
@@ -89,7 +99,7 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         }
         try {
             googleMap.clear();
-             viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
+            viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
             for (Vivienda vivienda : viviendaList) {
                 MarkerOptions marker = new MarkerOptions().position(new LatLng(vivienda.getLatitude(), vivienda.getLongitude()));
                 marker.title(vivienda.getUrl());
