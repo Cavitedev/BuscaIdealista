@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,9 @@ import com.cavitedet.buscaidealista.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final long MIN_UPDATE_TIME = 10000; // 10 segundos
+    //Solo tengo 100 llamadas al mes de idealista, pocas actualizaciones
+    private static final long MIN_UPDATE_TIME = 100000; // 100 segundos
+    private static final long MIN_DISTANCE = 1000; // 1000 metros
     FragmentMaps fragmentMaps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +72,9 @@ public class MainActivity extends AppCompatActivity {
                     String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,
-                MIN_UPDATE_TIME, 0, local);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                MIN_UPDATE_TIME, 0, local);
+        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, local, Looper.myLooper() );
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                MIN_UPDATE_TIME, MIN_DISTANCE, local);
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
