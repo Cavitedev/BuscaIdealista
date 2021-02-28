@@ -6,10 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
-@JsonIgnoreProperties(value = {"propertyCode", "externalReference", "numPhotos", "floor", "propertyType", "operation",
-        "exterior", "rooms", "bathrooms", "province", "municipality", "district", "country", "showAddress",
-        "distance", "hasVideo", "status", "newDevelopment", "parkingSpace", "priceByArea", "detailedType",
-        "suggestedTexts", "hasPlan", "has3DTour", "has360", "hasStaging", "topNewDevelopment", "hasLift"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vivienda {
 
     private String thumbnail;
