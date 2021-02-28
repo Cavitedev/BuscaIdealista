@@ -54,6 +54,7 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         }
         try {
             //TODO: File not found exception
+            googleMap.clear();
             List<Vivienda> viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
             for (Vivienda vivienda : viviendaList) {
                 googleMap.addMarker(new MarkerOptions().position(new LatLng(vivienda.getLatitude(), vivienda.getLongitude())));
