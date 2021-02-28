@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
                     String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
-//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-//                MIN_UPDATE_TIME, 0, local);
+        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,
+                MIN_UPDATE_TIME, 0, local);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 MIN_UPDATE_TIME, 0, local);
     }

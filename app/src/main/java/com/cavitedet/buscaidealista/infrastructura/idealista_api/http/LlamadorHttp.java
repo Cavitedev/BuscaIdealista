@@ -1,6 +1,9 @@
 package com.cavitedet.buscaidealista.infrastructura.idealista_api.http;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -13,7 +16,7 @@ import java.util.Map;
 public class LlamadorHttp implements ILlamadorHttp {
 
     private static LlamadorHttp instance;
-    private OkHttpClient client;
+    private final OkHttpClient client;
 
     public static LlamadorHttp getInstance() {
         if (instance == null) {
@@ -54,6 +57,14 @@ public class LlamadorHttp implements ILlamadorHttp {
             throw new LlamadaHttpException(response.code(), response.body().string());
         }
         return response.body().string();
+
+    }
+
+    @Override
+    public Bitmap descargarImagen(String url) throws IOException {
+        Request peticion = new Request.Builder().url(url).build();
+        Response respuesta = client.newCall(peticion).execute();
+        return BitmapFactory.decodeStream(respuesta.body().byteStream());
 
     }
 

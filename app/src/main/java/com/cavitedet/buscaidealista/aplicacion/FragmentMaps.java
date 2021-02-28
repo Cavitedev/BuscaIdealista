@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 
+import com.bumptech.glide.Glide;
 import com.cavitedet.buscaidealista.R;
 import com.cavitedet.buscaidealista.dominio.idealista_api.IIdealistaRepositorio;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
@@ -52,10 +54,21 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                View v = getLayoutInflater().inflate(R.layout.vivienda_desplegable, null);
-                TextView titulo = v.findViewById(R.id.titulo);
-                titulo.setText(marker.getTitle());
-                return v;
+                for(Vivienda vivienda: viviendaList){
+                    if(vivienda.getUrl().equals(marker.getTitle())){
+                        View v = getLayoutInflater().inflate(R.layout.vivienda_desplegable, null);
+                        TextView titulo = v.findViewById(R.id.titulo);
+                        TextView direccion = v.findViewById(R.id.direccion);
+                        ImageView imagenMiniatura = v.findViewById(R.id.miniatura_imagen);
+                        if(vivienda.getThumbnailBitmap() != null){
+                            imagenMiniatura.setImageBitmap(vivienda.getThumbnailBitmap());
+                        }
+                        titulo.setText(marker.getTitle());
+                        direccion.setText(vivienda.getAddress());
+                        return v;
+                    }
+                }
+                return null;
             }
 
             @Override
@@ -64,14 +77,6 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
             }
         });
 
-        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-
-                return false;
-            }
-
-        });
 
 
     }
@@ -95,8 +100,6 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         } catch (LlamadaHttpException e) {
             e.printStackTrace();
         }
-//        googleMap.clear();
-//        googleMap.addMarker(new MarkerOptions().position(latLng));
     }
 
     public void moverCamara(LatLng latLng) {

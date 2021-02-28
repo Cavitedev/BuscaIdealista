@@ -1,11 +1,17 @@
 package com.cavitedet.buscaidealista.dominio.idealista_api.datos;
 
+import android.graphics.Bitmap;
+
+import com.cavitedet.buscaidealista.infrastructura.idealista_api.http.LlamadorHttp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Vivienda {
 
@@ -16,6 +22,8 @@ public class Vivienda {
     private double longitude, latitude;
     private String url;
 
+    @JsonIgnore
+    private Bitmap thumbnailBitmap;
 
     public static Vivienda fromJson(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -28,16 +36,26 @@ public class Vivienda {
 
     }
 
-    public static List<Vivienda> fromJsonList(String json){
+    public static List<Vivienda> fromJsonList(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(json, new TypeReference<List<Vivienda>>() {});
+            return objectMapper.readValue(json, new TypeReference<List<Vivienda>>() {
+            });
+
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    public void cargarBitmapDesdeThumbail() {
+        try {
+            thumbnailBitmap = LlamadorHttp.getInstance().descargarImagen(thumbnail);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getThumbnail() {
         return thumbnail;
@@ -45,6 +63,22 @@ public class Vivienda {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+
+        new Thread() {
+            @Override
+            public void run() {
+                cargarBitmapDesdeThumbail();
+            }
+        }.start();
+
+    }
+
+    public Bitmap getThumbnailBitmap() {
+        return thumbnailBitmap;
+    }
+
+    public void setThumbnailBitmap(Bitmap thumbnailBitmap) {
+        this.thumbnailBitmap = thumbnailBitmap;
     }
 
     public String getAddress() {
