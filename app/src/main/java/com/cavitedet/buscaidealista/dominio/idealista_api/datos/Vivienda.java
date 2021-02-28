@@ -2,12 +2,14 @@ package com.cavitedet.buscaidealista.dominio.idealista_api.datos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@JsonIgnoreProperties(value = {"propertyCode", "externalReference", "numPhotos", "floor", "propertyType", "operation", "size",
+import java.util.List;
+@JsonIgnoreProperties(value = {"propertyCode", "externalReference", "numPhotos", "floor", "propertyType", "operation",
         "exterior", "rooms", "bathrooms", "province", "municipality", "district", "country", "showAddress",
         "distance", "hasVideo", "status", "newDevelopment", "parkingSpace", "priceByArea", "detailedType",
-        "suggestedTexts", "hasPlan", "has3DTour", "has360", "hasStaging", "topNewDevelopment"})
+        "suggestedTexts", "hasPlan", "has3DTour", "has360", "hasStaging", "topNewDevelopment", "hasLift"})
 public class Vivienda {
 
     private String thumbnail;
@@ -28,6 +30,17 @@ public class Vivienda {
         return null;
 
     }
+
+    public static List<Vivienda> fromJsonList(String json){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(json, new TypeReference<List<Vivienda>>() {});
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public String getThumbnail() {
         return thumbnail;

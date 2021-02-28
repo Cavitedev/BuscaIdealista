@@ -1,6 +1,15 @@
 package com.cavitedet.buscaidealista.dominio.idealista_api.datos;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -66,4 +75,30 @@ public class ViviendaTest {
         assertEquals("San Pablo - Santa Teresa",vivienda.getAddress());
 
     }
+
+    @Test
+    public void fromJsonList() throws FileNotFoundException {
+        // path may change over time
+        File jsonFile = new File("../app/src/testShared/java/com/cavitedev.buscaidealista.infrastructura/ejViviendas.json");
+        BufferedReader reader = new BufferedReader(new FileReader(jsonFile));
+        String json = reader.lines().collect(Collectors.joining());
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<Vivienda> viviendaList = Vivienda.fromJsonList(json);
+        assertNotNull(viviendaList);
+        assertEquals(7,viviendaList.size());
+        Vivienda vivienda = viviendaList.get(0);
+        assert vivienda != null;
+        assertEquals("https://www.idealista.com/inmueble/40013150/",vivienda.getUrl());
+        assertEquals("https://img3.idealista.com/blur/WEB_LISTING/0/id.pro.es.image.master/4e/cb/00/668266794.jpg",vivienda.getThumbnail());
+        assertEquals(38.9885703,vivienda.getLatitude(), 0.01);
+        assertEquals(-1.8693012,vivienda.getLongitude(), 0.01);
+        assertEquals(380000.0,vivienda.getPrice(), 0.01);
+        assertEquals(257.0,vivienda.getSize(), 0.01);
+        assertEquals("San Pablo - Santa Teresa",vivienda.getAddress());
+    }
+
 }
