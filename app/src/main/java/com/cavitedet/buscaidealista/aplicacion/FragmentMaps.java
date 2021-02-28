@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.os.HandlerCompat;
 
 import com.cavitedet.buscaidealista.R;
 import com.cavitedet.buscaidealista.dominio.idealista_api.IIdealistaRepositorio;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.Vivienda;
+import com.cavitedet.buscaidealista.infrastructura.idealista_api.IdealistaRepositorio;
 import com.cavitedet.buscaidealista.infrastructura.idealista_api.fake.FakeIdealistaRepositorio;
 import com.cavitedet.buscaidealista.infrastructura.idealista_api.http.LlamadaHttpException;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,19 +33,26 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallback {
 
     private boolean camaraPosicionada = false;
     private GoogleMap googleMap;
-    IIdealistaRepositorio idealistaRepositorio = new FakeIdealistaRepositorio();
+    IIdealistaRepositorio idealistaRepositorio;
     List<Vivienda> viviendaList;
+
+    private Handler handler;
 
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+        idealistaRepositorio = new IdealistaRepositorio(getContext());
         View rootView = super.onCreateView(layoutInflater, viewGroup, bundle);
 
+        handler = HandlerCompat.createAsync(Looper.getMainLooper());
         getMapAsync(this);
 
         return rootView;
@@ -95,19 +106,38 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         if (!camaraPosicionada) {
             moverCamara(latLng);
         }
-        try {
+
             googleMap.clear();
-            viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
-            for (Vivienda vivienda : viviendaList) {
-                MarkerOptions marker = new MarkerOptions().position(new LatLng(vivienda.getLatitude(), vivienda.getLongitude()));
-                marker.title(vivienda.getUrl());
-                googleMap.addMarker(marker);
+
+        Executor executor = Executors.newFixedThreadPool(1);
+            executor.execute(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
+                        anadirViviendasMapa(viviendaList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (LlamadaHttpException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
+    }
+
+    public void anadirViviendasMapa(List<Vivienda> viviendaList){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                for (Vivienda vivienda : viviendaList) {
+                    MarkerOptions marker = new MarkerOptions().position(new LatLng(vivienda.getLatitude(), vivienda.getLongitude()));
+                    marker.title(vivienda.getUrl());
+                    googleMap.addMarker(marker);
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LlamadaHttpException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void moverCamara(LatLng latLng) {
