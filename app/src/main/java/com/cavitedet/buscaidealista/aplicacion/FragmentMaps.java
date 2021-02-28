@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 
+import com.cavitedet.buscaidealista.R;
 import com.cavitedet.buscaidealista.dominio.idealista_api.IIdealistaRepositorio;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.Vivienda;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -29,6 +32,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
     private boolean camaraPosicionada = false;
     private GoogleMap googleMap;
     IIdealistaRepositorio idealistaRepositorio = new FakeIdealistaRepositorio();
+    List<Vivienda> viviendaList;
+
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
@@ -44,6 +49,31 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         this.googleMap = googleMap;
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                View v = getLayoutInflater().inflate(R.layout.vivienda_desplegable, null);
+                TextView titulo = v.findViewById(R.id.titulo);
+                titulo.setText(marker.getTitle());
+                return v;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                return false;
+            }
+
+        });
+
+
     }
 
 
@@ -53,11 +83,12 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
             moverCamara(latLng);
         }
         try {
-            //TODO: File not found exception
             googleMap.clear();
-            List<Vivienda> viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
+             viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
             for (Vivienda vivienda : viviendaList) {
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(vivienda.getLatitude(), vivienda.getLongitude())));
+                MarkerOptions marker = new MarkerOptions().position(new LatLng(vivienda.getLatitude(), vivienda.getLongitude()));
+                marker.title(vivienda.getUrl());
+                googleMap.addMarker(marker);
             }
         } catch (IOException e) {
             e.printStackTrace();
