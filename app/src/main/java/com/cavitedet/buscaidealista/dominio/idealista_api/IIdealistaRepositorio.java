@@ -15,7 +15,7 @@ public interface IIdealistaRepositorio {
      * @throws IOException connectivity problem or timeout
      * @throws LlamadaHttpException Not 200 http code exception
      */
-    List<Vivienda> getViviendas(double lon, double lat, double distanciaMetros, VentaAlquiler ventaAlquiler) throws IOException, LlamadaHttpException;
+    List<Vivienda> getViviendas(double lat, double lon, double distanciaMetros, VentaAlquiler ventaAlquiler) throws IOException, LlamadaHttpException;
 
 
 }

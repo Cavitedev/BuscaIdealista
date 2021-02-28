@@ -14,7 +14,7 @@ public class IdealistaRepositorio implements IIdealistaRepositorio {
 
 
     @Override
-    public List<Vivienda> getViviendas(double lon, double lat, double distanciaMetros, VentaAlquiler ventaAlquiler) throws IOException, LlamadaHttpException {
+    public List<Vivienda> getViviendas(double lat, double lon, double distanciaMetros, VentaAlquiler ventaAlquiler) throws IOException, LlamadaHttpException {
         return null;
     }
 }

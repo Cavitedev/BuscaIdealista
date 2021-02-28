@@ -79,7 +79,7 @@ public class ViviendaTest {
     @Test
     public void fromJsonList() throws FileNotFoundException {
         // path may change over time
-        File jsonFile = new File("../app/src/testShared/java/com/cavitedev.buscaidealista.infrastructura/ejViviendas.json");
+        File jsonFile = new File("../app/src/main/java/com/cavitedet/buscaidealista/infrastructura/idealista_api/fake/ejViviendas.json");
         BufferedReader reader = new BufferedReader(new FileReader(jsonFile));
         String json = reader.lines().collect(Collectors.joining());
         try {

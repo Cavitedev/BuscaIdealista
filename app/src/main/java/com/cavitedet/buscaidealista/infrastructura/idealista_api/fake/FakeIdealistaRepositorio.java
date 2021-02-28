@@ -1,4 +1,4 @@
-package com.cavitedev.buscaidealista.infrastructura;
+package com.cavitedet.buscaidealista.infrastructura.idealista_api.fake;
 
 import com.cavitedet.buscaidealista.dominio.idealista_api.IIdealistaRepositorio;
 import com.cavitedet.buscaidealista.dominio.idealista_api.datos.VentaAlquiler;
@@ -18,17 +18,21 @@ public class FakeIdealistaRepositorio implements IIdealistaRepositorio {
 
 
     @Override
-    public List<Vivienda> getViviendas(double lon, double lat, double distanciaMetros, VentaAlquiler ventaAlquiler) throws IOException, LlamadaHttpException {
+    public List<Vivienda> getViviendas(double lat, double lon, double distanciaMetros, VentaAlquiler ventaAlquiler) throws IOException, LlamadaHttpException {
 
-        File jsonFile = new File("../app/src/testShared/java/com/cavitedev.buscaidealista.infrastructura/ejViviendas.json");
+        File jsonFile = new File("../app/src/main/java/com/cavitedet/buscaidealista/infrastructura/idealista_api/fake/ejViviendas.json");
         BufferedReader reader = new BufferedReader(new FileReader(jsonFile));
-        String json = reader.lines().collect(Collectors.joining());
+        String line;
+        StringBuilder jsonBuilder = new StringBuilder();
+        while((line = reader.readLine()) != null){
+            jsonBuilder.append(line);
+        }
         try {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Vivienda.fromJsonList(json);
+        return Vivienda.fromJsonList(jsonBuilder.toString());
     }
 
 
