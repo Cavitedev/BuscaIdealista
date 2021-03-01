@@ -1,6 +1,7 @@
 package com.cavitedet.buscaidealista.aplicacion.listado_viviendas;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
@@ -18,7 +19,10 @@ public class ListadoViviendasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viviendas =  getIntent().getParcelableArrayListExtra(Constantes.VIVIENDA_INTENT);
         setContentView(R.layout.listado_viviendas_activity);
+        viviendas =  getIntent().getParcelableArrayListExtra(Constantes.VIVIENDA_INTENT);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_viviendas);
+        ViviendaAdapter viviendaAdapter = new ViviendaAdapter(this,viviendas);
+        recyclerView.setAdapter(viviendaAdapter);
     }
 }

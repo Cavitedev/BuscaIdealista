@@ -12,5 +12,7 @@
     <string name="alquiler">Alquiler</string>
     <string name="listado_viviendas">Listado Viviendas</string>
     <string name="toast_esperar_cargar_viviendas">Espera a que se carguen las viviendas</string>
+    <string name="latitud">Latitud: %sº</string>
+    <string name="longitud">Longitud: %sº</string>
 
 </resources>

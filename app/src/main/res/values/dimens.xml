@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_general">8dp</dimen>
+    <dimen name="tamano_imagen_mapa">100dp</dimen>
+    <dimen name="tamano_imagen_list">125dp</dimen>
+    <dimen name="margen_pequeno">4dp</dimen>
 </resources>
