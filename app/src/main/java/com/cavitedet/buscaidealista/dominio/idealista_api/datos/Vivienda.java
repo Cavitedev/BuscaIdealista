@@ -55,6 +55,7 @@ public class Vivienda implements Parcelable {
     }
 
     public void cargarBitmapDesdeThumbail() {
+        if(thumbnail == null) return;
         try {
             thumbnailBitmap = LlamadorHttp.getInstance().descargarImagen(thumbnail);
         } catch (IOException e) {
