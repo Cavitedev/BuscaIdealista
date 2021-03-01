@@ -12,7 +12,7 @@ Clona el proyecto en android studio y copia o crea el fichero Secrets.properties
 
 ## Idioma
 
-Todo en español a demanda del profesor, aunque quizás se me vaya la pinza y ponga algo en inglés, o usos especificos como en la clase Vivienda está en inglés para adaptar el json por ejemplo.
+Todo en español a demanda del profesor, aunque quizás se me vaya la pinza y ponga algo en inglés, o usos específicos como en la clase Vivienda está en inglés para adaptar el json por ejemplo.
 
 ## Dependencias
 
@@ -37,7 +37,7 @@ La aplicación se dividirá en 4 capas que serán las siguientes:
 
 ### 1) Dominio
 
-Todos los datos e interfaces hacia la infrastrcutur.
+Todos los datos e interfaces hacia la infrastructura.
 
 ### 2) Infraestructura
 
@@ -59,11 +59,11 @@ Eso está explicado en la parte de [pantallas](https://github.com/Cavitedev/Busc
 
 ### 2) Debe haber al menos dos o más activities que se comuniquen información con intents
 
-La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) pasá un Parcelable a la actividad [listado](https://github.com/Cavitedev/BuscaIdealista#2-lista-de-viviendas).
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) pasa un Parcelable a la actividad [listado](https://github.com/Cavitedev/BuscaIdealista#2-lista-de-viviendas).
 
 ### 3) Debe contener algún elemento de reproducción multimedia.
 
-La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) realiza un sonido mío hablando al actualizar las vivinedas.
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) realiza un sonido mío hablando al actualizar las viviendas.
 
 ### 4) Debe usar Localización y/o Mapas (preferiblemente ambos)
 
