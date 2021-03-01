@@ -2,15 +2,13 @@
 <androidx.cardview.widget.CardView
         android:id="@+id/card"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         >
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -19,23 +17,34 @@
                 android:layout_height="100dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher"
-                android:contentDescription="miniatura_vivienda"
+                android:layout_gravity="center"
+                android:contentDescription="@string/miniatura_vivienda_descripcion"
             />
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            <TextView
-                    android:id="@+id/titulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hola"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_general"
+                android:orientation="vertical"
+                >
+            />
             <TextView
                     android:id="@+id/direccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hola2"/>
+                    android:text="@string/direccion"/>
+            <TextView
+                    android:id="@+id/espacio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/espacio"/>
+
+            <TextView
+                    android:id="@+id/precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/precio"/>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.cavitedet.buscaidealista.aplicacion;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,7 +50,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        idealistaRepositorio = new IdealistaRepositorio(getContext());
+//        idealistaRepositorio = new IdealistaRepositorio(getContext());
+        idealistaRepositorio = new FakeIdealistaRepositorio();
         View rootView = super.onCreateView(layoutInflater, viewGroup, bundle);
 
         handler = HandlerCompat.createAsync(Looper.getMainLooper());
@@ -76,14 +78,16 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
                 for (Vivienda vivienda : viviendaList) {
                     if (vivienda.getUrl().equals(marker.getTitle())) {
                         View v = getLayoutInflater().inflate(R.layout.vivienda_desplegable, null);
-                        TextView titulo = v.findViewById(R.id.titulo);
                         TextView direccion = v.findViewById(R.id.direccion);
+                        TextView espacio = v.findViewById(R.id.espacio);
+                        TextView precio = v.findViewById(R.id.precio);
                         ImageView imagenMiniatura = v.findViewById(R.id.miniatura_imagen);
                         if (vivienda.getThumbnailBitmap() != null) {
                             imagenMiniatura.setImageBitmap(vivienda.getThumbnailBitmap());
                         }
-                        titulo.setText(marker.getTitle());
-                        direccion.setText(vivienda.getAddress());
+                        direccion.setText(getString(R.string.direccion, vivienda.getAddress()) );
+                        espacio.setText(getString(R.string.espacio, String.valueOf(vivienda.getSize())) );
+                        precio.setText(getString(R.string.precio, String.valueOf(vivienda.getPrice())) );
 
                         return v;
                     }

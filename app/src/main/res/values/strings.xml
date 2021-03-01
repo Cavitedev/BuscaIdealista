@@ -2,4 +2,9 @@
     <string name="app_name">BuscaIdealista</string>
     <string name="title_activity_maps">Map</string>
     <string name="preferencias">mis_preferencias</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="direccion">Dirección: %s</string>
+    <string name="miniatura_vivienda_descripcion">miniatura_vivienda</string>
+    <string name="espacio">espacio: %s m2</string>
+    <string name="precio">Precio: %s€</string>
 </resources>
