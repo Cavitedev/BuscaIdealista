@@ -33,7 +33,10 @@ public class IdealistaRepositorio implements IIdealistaRepositorio {
             auth = Auth.desdeJson(llamadorApi.llamarAuth());
             auth.guardarPreferencias(context);
         }
-
+        // Hay menos Alquieres que compras
+        if(ventaAlquiler == VentaAlquiler.ALQUILER){
+            distanciaMetros *=5;
+        }
         String respuesta = llamadorApi.getViviendas(auth.getAccessToken(), lat, lon, distanciaMetros, ventaAlquiler);
         try {
             JSONObject jsonObject = new JSONObject(respuesta);

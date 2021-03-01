@@ -56,8 +56,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         // Comentar y descomentar para cambiar del repositorio falso al real
-//        idealistaRepositorio = new IdealistaRepositorio(getContext());
-        idealistaRepositorio = new FakeIdealistaRepositorio();
+        idealistaRepositorio = new IdealistaRepositorio(getContext());
+//        idealistaRepositorio = new FakeIdealistaRepositorio();
         View rootView = super.onCreateView(layoutInflater, viewGroup, bundle);
 
         handler = HandlerCompat.createAsync(Looper.getMainLooper());
@@ -128,15 +128,16 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
 
     public void updateCoordinates(double lat, double lon) {
         this.lat = lat;
-        this.lat = lon;
+        this.lon = lon;
         LatLng latLng = new LatLng(lat, lon);
         if (!camaraPosicionada) {
             moverCamara(latLng);
         }
 
+        audio_actualizacion.stop();
         audio_actualizacion.start();
 
-            googleMap.clear();
+        googleMap.clear();
 
         Executor executor = Executors.newFixedThreadPool(1);
             executor.execute(new Runnable(){

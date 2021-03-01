@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BuscaIdealista</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapa Idealista</string>
     <string name="preferencias">mis_preferencias</string>
     <string name="placeholder">Placeholder</string>
     <string name="direccion">Dirección: %s</string>
