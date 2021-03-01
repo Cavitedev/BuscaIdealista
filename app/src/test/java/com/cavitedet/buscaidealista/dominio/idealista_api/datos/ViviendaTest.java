@@ -1,6 +1,7 @@
 package com.cavitedet.buscaidealista.dominio.idealista_api.datos;
 
-import org.junit.Assert;
+import android.os.Parcel;
+
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class ViviendaTest {
+
+
 
     @Test
     public void fromJson() {

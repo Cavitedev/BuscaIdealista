@@ -21,7 +21,7 @@ public class AuthTest {
                 "  \"scope\": \"read\",\n" +
                 "  \"jti\": \"469defc6-f2cf-41d3-b0d4-df2902c7804b\"\n" +
                 "}";
-        Auth auth = new Auth(response);
+        Auth auth = Auth.desdeJson(response);
         Date time = new Date(Calendar.getInstance().getTimeInMillis() + 43200000);
          assertNotNull(auth.getAccessToken());
         assertEquals(time,auth.getExpirationDate());

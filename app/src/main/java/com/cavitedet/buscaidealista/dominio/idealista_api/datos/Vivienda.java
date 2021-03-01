@@ -1,6 +1,8 @@
 package com.cavitedet.buscaidealista.dominio.idealista_api.datos;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.cavitedet.buscaidealista.infrastructura.idealista_api.http.LlamadorHttp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Vivienda {
+public class Vivienda implements Parcelable {
 
     private String thumbnail;
     private String address;
@@ -24,6 +26,32 @@ public class Vivienda {
 
     @JsonIgnore
     private Bitmap thumbnailBitmap;
+
+    public Vivienda() {
+    }
+
+    protected Vivienda(Parcel in) {
+        thumbnail = in.readString();
+        address = in.readString();
+        size = in.readDouble();
+        price = in.readDouble();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
+        url = in.readString();
+        thumbnailBitmap = in.readParcelable(Bitmap.class.getClassLoader());
+    }
+
+    public static final Creator<Vivienda> CREATOR = new Creator<Vivienda>() {
+        @Override
+        public Vivienda createFromParcel(Parcel in) {
+            return new Vivienda(in);
+        }
+
+        @Override
+        public Vivienda[] newArray(int size) {
+            return new Vivienda[size];
+        }
+    };
 
     public static Vivienda fromJson(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -81,6 +109,25 @@ public class Vivienda {
         this.thumbnailBitmap = thumbnailBitmap;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(address);
+        dest.writeString(url);
+        dest.writeDouble(price);
+        dest.writeDouble(size);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
+        dest.writeString(thumbnail);
+        thumbnailBitmap.writeToParcel(dest, flags);
+
+
+    }
+
     public String getAddress() {
         return address;
     }
@@ -128,4 +175,6 @@ public class Vivienda {
     public void setUrl(String url) {
         this.url = url;
     }
+
+
 }
