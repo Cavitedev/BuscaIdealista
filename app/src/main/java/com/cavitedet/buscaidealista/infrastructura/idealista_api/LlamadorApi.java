@@ -39,7 +39,7 @@ public class LlamadorApi implements ILlamadorApi {
         String uri = "https://api.idealista.com/3.5/es/search?center="+lon+"%2C"+lat+"&distance="+
                 distanciaMetros+"&operation="
                 + VentaAlquilerUtil.getNombreApiVentaAlquiler(ventaAlquiler)
-                +"&propertyType=homes";
+                +"&propertyType=homes"+"&maxItems=50";
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization","Bearer "+token);
