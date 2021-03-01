@@ -1,20 +1,125 @@
-# BuscaIdealista, Anteproyecto Carlos Víllora Idealista
+# Proyecto DAM BuscaIdealista
 
-Será una aplicación que mostrará las viviendas a la venta alrededor tuyo:
+Proyecto para Programación Multimedia y Dispositivos Móviles 2020-2021 por Carlos Víllora Tercero.
 
-## Contará con al menos esto
+## Motivación
 
-- Actividad con un mapa y los resultados
-- Actividad para cambiar ajustes de búsqueda
-- Se intentará utilizar contenido multimedia de idealista, si no añadiré un sonido al hacer la búsqueda por ejemplo
-- Guardará la última búsqueda realizada
-- Al seleccionar una vivienda se mostrará un dialogo con sus datos
+Tenía que hacer una aplicación con mapas y ubicación. Para eso quería añadir a un mapa información adicional y pensé utilizar viviendas y contacte con idealista para que me diera una API para el desarrollo que solo permite 100 llamadas al mes **cuidado con eso.**
 
-## Posibles añadidos
+## Instalación
 
-- Notificar cuando el precio baje de cierto umbral y su correspondiente parte gráfica para configurarlo
+Clona el proyecto en android studio y copia o crea el fichero Secrets.properties en la raíz del proyecto. Este fichero no lo subiré a github porque contiene mi clave privada, esta clase tiene una variable llamada `auth` con la auth de idealista [API](https://developers.idealista.com/access-request) y los ficheros correspondientes a la API de mapas, se puede utilizar en fragmentMaps.java el repositorio falso para minimizar el uso de llamadas.
 
-## Ejemplo de datos que obtengo de la api a 100 metros del instituo
+## Idioma
+
+Todo en español a demanda del profesor, aunque quizás se me vaya la pinza y ponga algo en inglés, o usos especificos como en la clase Vivienda está en inglés para adaptar el json por ejemplo.
+
+## Dependencias
+
+La aplicación se ha hecho con un nivel mínimo de API 22 (Lollipop). Se utilizarán dependencias de okhttp para hacer llamadas http y jackson para convertir json a clases POJO , eso se puede ver en el [gradle](https://github.com/Cavitedev/BuscaIdealista/blob/master/build.gradle).
+
+## Pantallas
+
+### 1) Main Activity, El mapa
+
+Consta de un mapa en el que pasado el suficiente tiempo se obtendrá la localización, iniciará un audio y mostrará en el mapa las viviendas que puedes comprar. Aquí hay un dialogo para elegir entre Venta y Compra en el menú superior derecho y otro botón del menú para ir al listado de viviendas obtenidas.
+
+<img src="https://github.com/Cavitedev/BuscaIdealista/raw/master/resources/idealista-mapa.jpg" alt="idealista-mapa" style="zoom:50%;" />
+
+### 2) Lista de viviendas
+
+Se muestran las distintas vivienda obtenidas anteriormente y se pasarán a través de Intent dónde las imágenes se descargarán de nuevo.
+<img src="https://github.com/Cavitedev/BuscaIdealista/raw/master/resources/idealista-viviendas.jpg" alt="Lista imagen" style="zoom:50%;" />
+
+## Estructura
+
+La aplicación se dividirá en 4 capas que serán las siguientes:
+
+### 1) Dominio
+
+Todos los datos e interfaces hacia la infrastrcutur.
+
+### 2) Infraestructura
+
+Clases para conectar con la api,
+
+### 3) Aplicación
+
+Todas las clases que gestionan la UI, activities, etc. desde Java.
+
+### 4) Presentación
+
+Los ficheros en res son la parte de la interfaz gráfica.
+
+## Plantilla Requisitos
+
+### 1) Tiene que constar de varias actívities, aunque también puede contener otros elementos
+
+Eso está explicado en la parte de [pantallas](https://github.com/Cavitedev/BuscaIdealista#pantallas), los 2 primeros son los activities [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa), [listado](https://github.com/Cavitedev/BuscaIdealista#2-lista-de-viviendas).
+
+### 2) Debe haber al menos dos o más activities que se comuniquen información con intents
+
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa) pasá un Parcelable a la actividad [listado](https://github.com/Cavitedev/BuscaIdealista#2-lista-de-viviendas).
+
+### 3) Debe contener algún elemento de reproducción multimedia.
+
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa) realiza un sonido mío hablando al actualizar las vivinedas.
+
+### 4) Debe usar Localización y/o Mapas (preferiblemente ambos)
+
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa) utiliza tanto mapas como localización.
+
+### 5) Debe usar memoria externa, bien mediante Preferences, archivos o BD. SQLite.
+
+Guarda en preferencias el auth obtenido de la api que caduca a las 12 horas para poder reutilizarlo sin pedirlo cada vez que sea necesario, eso está en esta [clase](https://github.com/Cavitedev/BuscaIdealista/blob/master/app/src/main/java/com/cavitedet/buscaidealista/dominio/idealista_api/auth/Auth.java).
+
+### 6) Debe contener Notificaciones, o Dialogos (barra estado, mensajes emergentes..etc)
+
+Contiene un dialogo para elegir entre compra y ventas, también aparece un Toast si se intenta cargar las viviendas antes de que las cargue el mapa
+
+### 7) Presentación gráfica y el uso de elementos no vistos en clase (menús, pestañas, controles personalizados, etc)
+
+Nada en especial, un mapa y un RecyclerView muy sencillo, he preferido no dedicarle tiempo a eso
+
+### 8) Se valora el uso de otros elementos vistos en clase…
+
+La llamada a la api si cuentas el Backend, pero he intentado solo utilizar cosas vistas en clase
+
+### 9) Otros comentarios o elementos incluidos.
+
+#### API
+
+He utilizado una [API](https://developers.idealista.com/access-request) de idealista porque creo que es la que mejor trabaja en Albacete.
+
+#### Tests
+
+También he añadido unos pocos[test unitarios](https://github.com/Cavitedev/BuscaIdealista/tree/master/app/src/test/java/com/cavitedet/buscaidealista) para ir desarrollando cosas específicas como la convierte el JSON a POJO. También tengo [tests instrumentados](https://github.com/Cavitedev/BuscaIdealista/tree/master/app/src/androidTest/java/com/cavitedet/buscaidealista) para comprobar el funcionamiento real de la  [API](https://developers.idealista.com/access-request) antes de hacer la interfaz gráfica.
+
+#### Control de Versiones
+
+He utilizado git con github para el control de versiones como de costumbre aunque cree de nuevo el proyecto cuando se me filtro la autenticación de idealista en el historial
+
+## Fallos conocidos o cosas a mejorar
+
+### 1) Orden en el código
+
+Tenía prisas y poco tiempo y no quería alargar o mejorar este proyecto, así que la parte del fragmento y demás esta todo muy solapado
+
+### 2) Control de excepciones
+
+Aunque tenga algo montado para el control de excepciones nada llega a la ui, así que no me he molestado en implementarlo bien, si te da algún fallo avísame
+
+### 3) Imágenes en el listado de viviendas
+
+Al descargar de nuevo las imágenes estas no se actualizan hasta deslizar abajo y arriba en el RecyclerView
+
+### 4) Presentación
+
+No me he molestado en mejorar el texto ni nada
+
+## Ejemplo respuesta json
+
+Esta es la respuesta que me dio a 100 metros del instituto
 
 ```json
 {
@@ -335,4 +440,6 @@ Será una aplicación que mostrará las viviendas a la venta alrededor tuyo:
   "paginable": false
 }
 ```
+
+
 
