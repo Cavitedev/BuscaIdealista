@@ -134,7 +134,7 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
             moverCamara(latLng);
         }
 
-        audio_actualizacion.stop();
+
         audio_actualizacion.start();
 
         googleMap.clear();
