@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,15 +51,19 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
 
     private Handler handler;
 
+    private MediaPlayer audio_actualizacion;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+        // Comentar y descomentar para cambiar del repositorio falso al real
 //        idealistaRepositorio = new IdealistaRepositorio(getContext());
         idealistaRepositorio = new FakeIdealistaRepositorio();
         View rootView = super.onCreateView(layoutInflater, viewGroup, bundle);
 
         handler = HandlerCompat.createAsync(Looper.getMainLooper());
         getMapAsync(this);
+
+        audio_actualizacion = MediaPlayer.create(getContext(), R.raw.audio_viviendas_actualizadas);
 
         return rootView;
     }
@@ -128,6 +133,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         if (!camaraPosicionada) {
             moverCamara(latLng);
         }
+
+        audio_actualizacion.start();
 
             googleMap.clear();
 
