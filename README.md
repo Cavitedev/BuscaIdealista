@@ -59,15 +59,15 @@ Eso está explicado en la parte de [pantallas](https://github.com/Cavitedev/Busc
 
 ### 2) Debe haber al menos dos o más activities que se comuniquen información con intents
 
-La actividad [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa) pasá un Parcelable a la actividad [listado](https://github.com/Cavitedev/BuscaIdealista#2-lista-de-viviendas).
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) pasá un Parcelable a la actividad [listado](https://github.com/Cavitedev/BuscaIdealista#2-lista-de-viviendas).
 
 ### 3) Debe contener algún elemento de reproducción multimedia.
 
-La actividad [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa) realiza un sonido mío hablando al actualizar las vivinedas.
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) realiza un sonido mío hablando al actualizar las vivinedas.
 
 ### 4) Debe usar Localización y/o Mapas (preferiblemente ambos)
 
-La actividad [mapa](https://github.com/Cavitedev/BuscaIdealistar#1-main-activity-el-mapa) utiliza tanto mapas como localización.
+La actividad [mapa](https://github.com/Cavitedev/BuscaIdealista#1-main-activity-el-mapa) utiliza tanto mapas como localización.
 
 ### 5) Debe usar memoria externa, bien mediante Preferences, archivos o BD. SQLite.
 
@@ -93,7 +93,7 @@ He utilizado una [API](https://developers.idealista.com/access-request) de ideal
 
 #### Tests
 
-También he añadido unos pocos[test unitarios](https://github.com/Cavitedev/BuscaIdealista/tree/master/app/src/test/java/com/cavitedet/buscaidealista) para ir desarrollando cosas específicas como la convierte el JSON a POJO. También tengo [tests instrumentados](https://github.com/Cavitedev/BuscaIdealista/tree/master/app/src/androidTest/java/com/cavitedet/buscaidealista) para comprobar el funcionamiento real de la  [API](https://developers.idealista.com/access-request) antes de hacer la interfaz gráfica.
+También he añadido unos pocos [test unitarios](https://github.com/Cavitedev/BuscaIdealista/tree/master/app/src/test/java/com/cavitedet/buscaidealista) para ir desarrollando cosas específicas como la convierte el JSON a POJO. También tengo [tests instrumentados](https://github.com/Cavitedev/BuscaIdealista/tree/master/app/src/androidTest/java/com/cavitedet/buscaidealista) para comprobar el funcionamiento real de la  [API](https://developers.idealista.com/access-request) antes de hacer la interfaz gráfica.
 
 #### Control de Versiones
 
