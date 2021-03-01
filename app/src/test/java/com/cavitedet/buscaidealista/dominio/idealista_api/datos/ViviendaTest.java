@@ -1,6 +1,5 @@
 package com.cavitedet.buscaidealista.dominio.idealista_api.datos;
 
-import android.os.Parcel;
 
 import org.junit.Test;
 

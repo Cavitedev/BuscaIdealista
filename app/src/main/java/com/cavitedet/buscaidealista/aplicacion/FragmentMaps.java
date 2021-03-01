@@ -43,8 +43,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
 
     private boolean camaraPosicionada = false;
     private GoogleMap googleMap;
-    IIdealistaRepositorio idealistaRepositorio;
-    List<Vivienda> viviendaList;
+    private IIdealistaRepositorio idealistaRepositorio;
+    private List<Vivienda> viviendaList;
 
     private double lat, lon;
     private VentaAlquiler ventaAlquiler = VentaAlquiler.VENTA;

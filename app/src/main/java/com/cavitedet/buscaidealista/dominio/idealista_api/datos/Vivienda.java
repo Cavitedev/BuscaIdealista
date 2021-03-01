@@ -30,29 +30,6 @@ public class Vivienda implements Parcelable {
     public Vivienda() {
     }
 
-    protected Vivienda(Parcel in) {
-        thumbnail = in.readString();
-        address = in.readString();
-        size = in.readDouble();
-        price = in.readDouble();
-        longitude = in.readDouble();
-        latitude = in.readDouble();
-        url = in.readString();
-        thumbnailBitmap = in.readParcelable(Bitmap.class.getClassLoader());
-    }
-
-    public static final Creator<Vivienda> CREATOR = new Creator<Vivienda>() {
-        @Override
-        public Vivienda createFromParcel(Parcel in) {
-            return new Vivienda(in);
-        }
-
-        @Override
-        public Vivienda[] newArray(int size) {
-            return new Vivienda[size];
-        }
-    };
-
     public static Vivienda fromJson(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -101,13 +78,33 @@ public class Vivienda implements Parcelable {
 
     }
 
-    public Bitmap getThumbnailBitmap() {
-        return thumbnailBitmap;
+
+
+
+
+
+    protected Vivienda(Parcel in) {
+        setThumbnail(in.readString());
+        address = in.readString();
+        url = in.readString();
+        price = in.readDouble();
+        size = in.readDouble();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
     }
 
-    public void setThumbnailBitmap(Bitmap thumbnailBitmap) {
-        this.thumbnailBitmap = thumbnailBitmap;
-    }
+    public static final Creator<Vivienda> CREATOR = new Creator<Vivienda>() {
+        @Override
+        public Vivienda createFromParcel(Parcel in) {
+            return new Vivienda(in);
+        }
+
+        @Override
+        public Vivienda[] newArray(int size) {
+            return new Vivienda[size];
+        }
+    };
+
 
     @Override
     public int describeContents() {
@@ -116,16 +113,24 @@ public class Vivienda implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(thumbnail);
         dest.writeString(address);
         dest.writeString(url);
         dest.writeDouble(price);
         dest.writeDouble(size);
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
-        dest.writeString(thumbnail);
-        thumbnailBitmap.writeToParcel(dest, flags);
+//        thumbnailBitmap.writeToParcel(dest, flags);
 
 
+    }
+
+    public Bitmap getThumbnailBitmap() {
+        return thumbnailBitmap;
+    }
+
+    public void setThumbnailBitmap(Bitmap thumbnailBitmap) {
+        this.thumbnailBitmap = thumbnailBitmap;
     }
 
     public String getAddress() {

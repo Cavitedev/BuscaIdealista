@@ -10,5 +10,7 @@
     <string name="venta_alquiler">Venta o Alquiler</string>
     <string name="venta">Venta</string>
     <string name="alquiler">Alquiler</string>
+    <string name="listado_viviendas">Listado Viviendas</string>
+    <string name="toast_esperar_cargar_viviendas">Espera a que se carguen las viviendas</string>
 
 </resources>

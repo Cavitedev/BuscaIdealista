@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.cavitedet.buscaidealista.R;
+import com.cavitedet.buscaidealista.aplicacion.listado_viviendas.ListadoViviendasActivity;
+import com.cavitedet.buscaidealista.core.Constantes;
+import com.cavitedet.buscaidealista.dominio.idealista_api.datos.Vivienda;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,6 +106,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.venta_alquiler) {
             new VentaAlquilerDialogo(fragmentMaps).show(getSupportFragmentManager(), getString(R.string.venta_alquiler));
+        }else if(item.getItemId() == R.id.listado_viviendas){
+            ArrayList<Vivienda> viviendaArrayList = (ArrayList<Vivienda>) fragmentMaps.getViviendaList();
+            if(viviendaArrayList == null || viviendaArrayList.isEmpty()){
+                Toast.makeText(this, getString(R.string.toast_esperar_cargar_viviendas), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            Intent irListadoViviendas = new Intent(this, ListadoViviendasActivity.class);
+            irListadoViviendas.putParcelableArrayListExtra(Constantes.VIVIENDA_INTENT,
+                    viviendaArrayList);
+            startActivity(irListadoViviendas);
         }
         return true;
     }

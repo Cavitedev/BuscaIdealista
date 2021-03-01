@@ -2,10 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
     <item android:id="@+id/venta_alquiler"
             android:title="@string/venta_alquiler"
             android:icon="@drawable/ic_baseline_house_24"
             app:showAsAction="ifRoom"
-
         />
+
+    <item android:id="@+id/listado_viviendas"
+            android:title="@string/listado_viviendas"
+            android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+            app:showAsAction="ifRoom"/>
 </menu>
