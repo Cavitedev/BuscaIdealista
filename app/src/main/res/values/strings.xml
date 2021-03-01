@@ -7,4 +7,8 @@
     <string name="miniatura_vivienda_descripcion">miniatura_vivienda</string>
     <string name="espacio">espacio: %s m2</string>
     <string name="precio">Precio: %s€</string>
+    <string name="venta_alquiler">Venta o Alquiler</string>
+    <string name="venta">Venta</string>
+    <string name="alquiler">Alquiler</string>
+
 </resources>

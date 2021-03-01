@@ -45,6 +45,9 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
     IIdealistaRepositorio idealistaRepositorio;
     List<Vivienda> viviendaList;
 
+    private double lat, lon;
+    private VentaAlquiler ventaAlquiler = VentaAlquiler.VENTA;
+
     private Handler handler;
 
 
@@ -58,6 +61,19 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
         getMapAsync(this);
 
         return rootView;
+    }
+
+    public List<Vivienda> getViviendaList() {
+        return viviendaList;
+    }
+
+    public VentaAlquiler getVentaAlquiler() {
+        return ventaAlquiler;
+    }
+
+    public void setVentaAlquiler(VentaAlquiler ventaAlquiler) {
+        this.ventaAlquiler = ventaAlquiler;
+        updateCoordinates(lat, lon);
     }
 
     @Override
@@ -106,6 +122,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
 
 
     public void updateCoordinates(double lat, double lon) {
+        this.lat = lat;
+        this.lat = lon;
         LatLng latLng = new LatLng(lat, lon);
         if (!camaraPosicionada) {
             moverCamara(latLng);
@@ -118,7 +136,8 @@ public class FragmentMaps extends SupportMapFragment implements OnMapReadyCallba
                 @Override
                 public void run() {
                     try {
-                        viviendaList = idealistaRepositorio.getViviendas(lat, lon, 100, VentaAlquiler.VENTA);
+                        viviendaList = idealistaRepositorio.getViviendas
+                                (lat, lon, 300, ventaAlquiler);
                         anadirViviendasMapa(viviendaList);
                     } catch (IOException e) {
                         e.printStackTrace();

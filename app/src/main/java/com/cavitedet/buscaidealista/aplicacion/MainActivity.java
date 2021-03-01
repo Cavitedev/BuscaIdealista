@@ -8,6 +8,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private static final long MIN_UPDATE_TIME = 100000; // 100 segundos
     private static final long MIN_DISTANCE = 1000; // 1000 metros
     FragmentMaps fragmentMaps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
-        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, local, Looper.myLooper() );
+        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, local, Looper.myLooper());
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                 MIN_UPDATE_TIME, MIN_DISTANCE, local);
     }
@@ -84,5 +87,20 @@ public class MainActivity extends AppCompatActivity {
                 iniciarLocalizacion();
             }
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.venta_alquiler) {
+            new VentaAlquilerDialogo(fragmentMaps).show(getSupportFragmentManager(), getString(R.string.venta_alquiler));
+        }
+        return true;
     }
 }
